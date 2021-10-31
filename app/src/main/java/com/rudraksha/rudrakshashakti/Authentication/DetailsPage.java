@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -70,6 +73,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     List<String> languages = new ArrayList<String>();
     List<String> pujans = new ArrayList<String>();
     boolean allSelected = false,agreed=false,allLanSelected=false,doesAllPuja=false;
+    boolean correctExperience;
     private MyProgressDialog progressDialog;
 
     TextView txtPoojans;
@@ -233,6 +237,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         }else if(view == aBinding.gender){
             selectGender();
         }else if(view == aBinding.all){
+
                 aBinding.all.setClickable(true);
                 if (((CheckBox) view).isChecked()) {
                     allSelected = true;
@@ -266,6 +271,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                     txtPoojans.setVisibility(View.GONE);
                     poojans.setVisibility(View.GONE);
                 }
+
             otherExperties.clear();
             getOtherExperties("all","add");
         }else if(view == aBinding.astrology){
@@ -339,33 +345,33 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
             getLanguages("all","add");
         }else if(view == aBinding.English){
             if (((CheckBox) view).isChecked()) {
-               getLanguages("English","add");
+                getLanguages("English","add");
             }else{
-               getLanguages("English","remove");
+                getLanguages("English","remove");
             }
         }else if(view == aBinding.Hindi){
             if (((CheckBox) view).isChecked()) {
-               getLanguages("Hindi","add");
+                getLanguages("Hindi","add");
             }else{
-               getLanguages("Hindi","remove");
+                getLanguages("Hindi","remove");
             }
         }else if(view == aBinding.bengali){
             if (((CheckBox) view).isChecked()) {
-               getLanguages("Bengali","add");
+                getLanguages("Bengali","add");
             }else{
-               getLanguages("Bengali","remove");
+                getLanguages("Bengali","remove");
             }
         }else if(view == aBinding.kannada){
             if (((CheckBox) view).isChecked()) {
-               getLanguages("Kannada","add");
+                getLanguages("Kannada","add");
             }else{
-               getLanguages("Kannada","remove");
+                getLanguages("Kannada","remove");
             }
         }else if(view == aBinding.malayalam){
             if (((CheckBox) view).isChecked()) {
-               getLanguages("Malayalam","add");
+                getLanguages("Malayalam","add");
             }else{
-               getLanguages("Malayalam","remove");
+                getLanguages("Malayalam","remove");
             }
         }else if(view == aBinding.pujans){
             if (((CheckBox) view).isChecked()) {
@@ -409,16 +415,22 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
             getDetails();
             if (name.equals("") || dateOfBirth.equals("") || gender.equals("") || state.equals("") || city.equals("") || fathersName.equals("") || EmailId.equals("") || WhatsappNo.equals("") || UpiNo.equals("") || mainExperty.equals("") || experience.equals("") || remarks.equals("") || languages.isEmpty() || price.equals("")) {
                 Utilities.makeToast("Enter all Required details", getApplicationContext());
-            }else{
-                for( int i=0;i<otherExperties.size();i++){
-                    if(otherExperties.get(i).equals(mainExperty)){
+            }
+            else if(validateDobAndExperience()==false){
+                Utilities.makeToast("Enter correct Experience", getApplicationContext());
+            }
+            else {
+
+                for (int i = 0; i < otherExperties.size(); i++) {
+                    if (otherExperties.get(i).equals(mainExperty)) {
                         otherExperties.remove(i);
                     }
                 }
-                getOtherExperties(mainExperty,"add");
+                getOtherExperties(mainExperty, "add");
                 compressAndUploadDetails();
+
             }
-        }else {
+        } else {
             openPrivacyPolicy();
         }
 
@@ -469,7 +481,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     private void compressAndUploadDetails(){
         myProgressDialog = new MyProgressDialog();
         if(imageUri != null){
-           uploadImage();
+            uploadImage();
         }else{
             Utilities.makeToast("Please Select a profile image", this);
         }
@@ -512,20 +524,20 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     /**
      * Get all the input values by users and store it in string*/
     private void getDetails(){
-         name = aBinding.inputName.getText().toString();
-         dateOfBirth = aBinding.inputDateOfBirth.getText().toString();
-         gender = aBinding.gender.getText().toString();
-         state = aBinding.inputStateOfBirth.getText().toString();
-         city = aBinding.inputCityOfBirth.getText().toString();
-         fathersName = aBinding.inputFathersName.getText().toString();
-         EmailId = aBinding.inputEmailId.getText().toString();
-         WhatsappNo = aBinding.inputWhatsappNumber.getText().toString();
-         UpiNo = aBinding.inputUPINumber.getText().toString();
-         mainExperty = aBinding.mainExperty.getText().toString();
-         experience = aBinding.inputExperience.getText().toString();
-         remarks = aBinding.remarks.getText().toString();
-         price = aBinding.inputPrice.getText().toString();
-         referral = aBinding.inputReferral.getText().toString();
+        name = aBinding.inputName.getText().toString();
+        dateOfBirth = aBinding.inputDateOfBirth.getText().toString();
+        gender = aBinding.gender.getText().toString();
+        state = aBinding.inputStateOfBirth.getText().toString();
+        city = aBinding.inputCityOfBirth.getText().toString();
+        fathersName = aBinding.inputFathersName.getText().toString();
+        EmailId = aBinding.inputEmailId.getText().toString();
+        WhatsappNo = aBinding.inputWhatsappNumber.getText().toString();
+        UpiNo = aBinding.inputUPINumber.getText().toString();
+        mainExperty = aBinding.mainExperty.getText().toString();
+        experience = aBinding.inputExperience.getText().toString();
+        remarks = aBinding.remarks.getText().toString();
+        price = aBinding.inputPrice.getText().toString();
+        referral = aBinding.inputReferral.getText().toString();
 
     }
 
@@ -546,11 +558,11 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 otherExperties.remove("Tarot Cards");
             }
         }else{
-             if (what.equals("add")){
-                 otherExperties.add(item);
-             }else if(what.equals("remove")){
-                 otherExperties.remove(item);
-             }
+            if (what.equals("add")){
+                otherExperties.add(item);
+            }else if(what.equals("remove")){
+                otherExperties.remove(item);
+            }
         }
     }
 
@@ -651,8 +663,27 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         });
     }
 
+    /**
+     * verify if the user entered correct or valid Experience*/
+    private boolean validateDobAndExperience(){
+        String StringDobYear = dateOfBirth.substring(dateOfBirth.length() - 4);
+        int dobYear = Integer.parseInt(StringDobYear);
 
+        String StringCurrentYear = new SimpleDateFormat("yyyy").format(Calendar.getInstance().getTime());
+        int CurrentYear = Integer.parseInt(StringCurrentYear);
 
+        int age = CurrentYear - dobYear;
+
+        int refExperience = Integer.parseInt(experience);
+
+        if(18 <= (age - refExperience)) {
+            correctExperience = true;
+        }
+        else{
+            correctExperience = false;
+        }
+        return correctExperience;
+    }
 
     /**
      * send user to main home page*/
