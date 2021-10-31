@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,6 +76,8 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     boolean correctExperience;
     private MyProgressDialog progressDialog;
 
+    TextView txtPoojans;
+    CheckBox poojans;
     @Override
     protected void onStart() {
         super.onStart();
@@ -217,6 +221,9 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+
+        txtPoojans = findViewById(R.id.txtPoojans);
+        poojans = findViewById(R.id.pujans);
         if (view == aBinding.nextBtn) {
             next();
         } else if (view == aBinding.backBtn) {
@@ -230,40 +237,54 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         }else if(view == aBinding.gender){
             selectGender();
         }else if(view == aBinding.all){
-            aBinding.all.setClickable(true);
-            if (((CheckBox) view).isChecked()) {
-                allSelected = true;
-                aBinding.astrology.setChecked(true);
-                aBinding.numerology.setChecked(true);
-                aBinding.vastuShastra.setChecked(true);
-                aBinding.tarotCard.setChecked(true);
-                aBinding.lalKitab.setChecked(true);
-                aBinding.astrology.setClickable(false);
-                aBinding.numerology.setClickable(false);
-                aBinding.vastuShastra.setClickable(false);
-                aBinding.tarotCard.setClickable(false);
-                aBinding.lalKitab.setClickable(false);
-            } else {
-                allSelected = false;
-                aBinding.astrology.setChecked(false);
-                aBinding.numerology.setChecked(false);
-                aBinding.vastuShastra.setChecked(false);
-                aBinding.tarotCard.setChecked(false);
-                aBinding.lalKitab.setChecked(false);
 
-                aBinding.astrology.setClickable(true);
-                aBinding.numerology.setClickable(true);
-                aBinding.vastuShastra.setClickable(true);
-                aBinding.tarotCard.setClickable(true);
-                aBinding.lalKitab.setClickable(true);
-            }
+                aBinding.all.setClickable(true);
+                if (((CheckBox) view).isChecked()) {
+                    allSelected = true;
+                    aBinding.astrology.setChecked(true);
+                    aBinding.numerology.setChecked(true);
+                    aBinding.vastuShastra.setChecked(true);
+                    aBinding.tarotCard.setChecked(true);
+                    aBinding.lalKitab.setChecked(true);
+                    aBinding.astrology.setClickable(false);
+                    aBinding.numerology.setClickable(false);
+                    aBinding.vastuShastra.setClickable(false);
+                    aBinding.tarotCard.setClickable(false);
+                    aBinding.lalKitab.setClickable(false);
+
+                    txtPoojans.setVisibility(View.VISIBLE);
+                    poojans.setVisibility(View.VISIBLE);
+                } else {
+                    allSelected = false;
+                    aBinding.astrology.setChecked(false);
+                    aBinding.numerology.setChecked(false);
+                    aBinding.vastuShastra.setChecked(false);
+                    aBinding.tarotCard.setChecked(false);
+                    aBinding.lalKitab.setChecked(false);
+
+                    aBinding.astrology.setClickable(true);
+                    aBinding.numerology.setClickable(true);
+                    aBinding.vastuShastra.setClickable(true);
+                    aBinding.tarotCard.setClickable(true);
+                    aBinding.lalKitab.setClickable(true);
+
+                    txtPoojans.setVisibility(View.GONE);
+                    poojans.setVisibility(View.GONE);
+                }
+
             otherExperties.clear();
             getOtherExperties("all","add");
         }else if(view == aBinding.astrology){
             if (((CheckBox) view).isChecked()) {
                 getOtherExperties("Astrology","add");
+
+                txtPoojans.setVisibility(View.VISIBLE);
+                poojans.setVisibility(View.VISIBLE);
             }else{
                 getOtherExperties("Astrology","remove");
+
+                txtPoojans.setVisibility(View.GONE);
+                poojans.setVisibility(View.GONE);
             }
         }else if(view == aBinding.numerology){
             if (((CheckBox) view).isChecked()) {
@@ -562,6 +583,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 aBinding.inputDateOfBirth.setText(date);
             }
         }, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()- 568025136000L);
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.show();
     }
