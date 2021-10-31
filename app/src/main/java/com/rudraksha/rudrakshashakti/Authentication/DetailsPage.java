@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,6 +72,8 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     boolean allSelected = false,agreed=false,allLanSelected=false,doesAllPuja=false;
     private MyProgressDialog progressDialog;
 
+    TextView txtPoojans;
+    CheckBox poojans;
     @Override
     protected void onStart() {
         super.onStart();
@@ -214,6 +217,9 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+
+        txtPoojans = findViewById(R.id.txtPoojans);
+        poojans = findViewById(R.id.pujans);
         if (view == aBinding.nextBtn) {
             next();
         } else if (view == aBinding.backBtn) {
@@ -240,6 +246,9 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                     aBinding.vastuShastra.setClickable(false);
                     aBinding.tarotCard.setClickable(false);
                     aBinding.lalKitab.setClickable(false);
+
+                    txtPoojans.setVisibility(View.VISIBLE);
+                    poojans.setVisibility(View.VISIBLE);
                 } else {
                     allSelected = false;
                     aBinding.astrology.setChecked(false);
@@ -253,14 +262,23 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                     aBinding.vastuShastra.setClickable(true);
                     aBinding.tarotCard.setClickable(true);
                     aBinding.lalKitab.setClickable(true);
+
+                    txtPoojans.setVisibility(View.GONE);
+                    poojans.setVisibility(View.GONE);
                 }
             otherExperties.clear();
             getOtherExperties("all","add");
         }else if(view == aBinding.astrology){
             if (((CheckBox) view).isChecked()) {
                 getOtherExperties("Astrology","add");
+
+                txtPoojans.setVisibility(View.VISIBLE);
+                poojans.setVisibility(View.VISIBLE);
             }else{
                 getOtherExperties("Astrology","remove");
+
+                txtPoojans.setVisibility(View.GONE);
+                poojans.setVisibility(View.GONE);
             }
         }else if(view == aBinding.numerology){
             if (((CheckBox) view).isChecked()) {
@@ -553,6 +571,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 aBinding.inputDateOfBirth.setText(date);
             }
         }, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()- 568025136000L);
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.show();
     }

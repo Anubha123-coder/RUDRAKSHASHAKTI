@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -494,6 +494,7 @@
 
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/txtPoojans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pujans"
@@ -505,13 +506,14 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="15dp"
                     android:textAlignment="textStart"
+                    android:visibility="gone"
                     />
                 <CheckBox
                     android:id="@+id/pujans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
-                    android:text="All Hindu Karamkand Pujan"
+                    android:text="All Hindu Ritual Poojans"
                     android:layout_marginStart="26dp"
                     android:layout_marginEnd="26dp"
                     android:layout_marginTop="6dp"
@@ -520,6 +522,7 @@
                     app:layout_constraintStart_toStartOf="@id/Hindi"
                     app:layout_constraintEnd_toEndOf="@id/Hindi"
                     app:layout_constraintTop_toBottomOf="@id/Hindi"
+                    android:visibility="gone"
                     />
 
                 <TextView
