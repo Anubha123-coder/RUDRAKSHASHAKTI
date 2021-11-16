@@ -417,7 +417,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 Utilities.makeToast("Enter all Required details", getApplicationContext());
             }
             else if(validateDobAndExperience()==false){
-                Utilities.makeToast("Enter correct Experience", getApplicationContext());
+                Utilities.makeToast("Experience after 18 years will be counted", getApplicationContext());
             }
             else {
 

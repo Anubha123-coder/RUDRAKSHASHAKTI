@@ -726,6 +726,19 @@
                     android:textAlignment="textStart"
                     />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="*NOTE:- with Referral code additional 20% discount will be given in first month fee"
+                    android:textColor="#FF0000"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="15dp"
+                    android:textAlignment="textStart"
+                    />
+
                 <!--Name-->
                 <EditText
                     android:id="@+id/inputReferral"
