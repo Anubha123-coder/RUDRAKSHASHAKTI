@@ -37,6 +37,7 @@ import com.rudraksha.rudrakshashakti.Common.ReconnectPage;
 //import com.rudraksha.rudrakshashakti.Common.SplashScreen;
 import com.rudraksha.rudrakshashakti.Common.SplashScreen;
 import com.rudraksha.rudrakshashakti.Pojo.ExpertDetails;
+import com.rudraksha.rudrakshashakti.Pojo.ExpertCourseDetails;
 import com.rudraksha.rudrakshashakti.R;
 import com.rudraksha.rudrakshashakti.Utilities.InternetConnection;
 import com.rudraksha.rudrakshashakti.Utilities.MyProgressDialog;
@@ -66,7 +67,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
     FirebaseAuth mAuth;
 
-    String name,dateOfBirth,state,city,Profile_Pic_Uri,uid,gender,fathersName,EmailId,WhatsappNo,UpiNo,mainExperty,experience,remarks,price,referral,availableForCourses,courseMode,DurationOfCourse,sessions,coursePrice,expertNote;
+    String name,dateOfBirth,state,city,Profile_Pic_Uri,uid,gender,fathersName,EmailId,WhatsappNo,UpiNo,mainExperty,experience,remarks,price,referral,availableForCourses,courseMode,DurationOfCourse,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ExpertMainCourse;
     List<String> otherExperties = new ArrayList<String>();
     List<String> coursesList = new ArrayList<String>();
     List<String> languages = new ArrayList<String>();
@@ -165,6 +166,8 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
     }
 
 
+
+
     /**Reconnects and also checks internet connection*/
     public void reconnect() {
         progressDialog = new MyProgressDialog();
@@ -220,6 +223,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         aBinding.ctarotCard.setOnClickListener(this);
         aBinding.cvastuShastra.setOnClickListener(this);
         aBinding.clalKitab.setOnClickListener(this);
+        aBinding.cmobileNumerology.setOnClickListener(this);
         aBinding.allLang.setOnClickListener(this);
         aBinding.English.setOnClickListener(this);
         aBinding.Hindi.setOnClickListener(this);
@@ -231,7 +235,8 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         aBinding.courseMode.setOnClickListener(this);
         aBinding.inputDuration.setOnClickListener(this);
         aBinding.inputSessions.setOnClickListener(this);
-        aBinding.inputCoursesPrice.setOnClickListener(this);
+        aBinding.inputBasicCoursesPrice.setOnClickListener(this);
+        aBinding.inputAdvanceCoursesPrice.setOnClickListener(this);
         aBinding.expertNote.setOnClickListener(this);
     }
 
@@ -347,12 +352,14 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 aBinding.cvastuShastra.setChecked(true);
                 aBinding.ctarotCard.setChecked(true);
                 aBinding.clalKitab.setChecked(true);
+                aBinding.cmobileNumerology.setChecked(true);
 
                 aBinding.castrology.setClickable(false);
                 aBinding.cnumerology.setClickable(false);
                 aBinding.cvastuShastra.setClickable(false);
                 aBinding.ctarotCard.setClickable(false);
                 aBinding.clalKitab.setClickable(false);
+                aBinding.cmobileNumerology.setClickable(false);
 
             } else {
                 callSelected = false;
@@ -366,6 +373,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 aBinding.cvastuShastra.setClickable(true);
                 aBinding.ctarotCard.setClickable(true);
                 aBinding.clalKitab.setClickable(true);
+                aBinding.cmobileNumerology.setClickable(true);
 
             }
 
@@ -402,6 +410,12 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 getCourses("Tarot Card","add");
             }else{
                 getCourses("Tarot Card","remove");
+            }
+        }else if(view == aBinding.cmobileNumerology){
+            if (((CheckBox) view).isChecked()) {
+                getCourses("Mobile Numerology","add");
+            }else{
+                getCourses("Mobile Numerology","remove");
             }
         }
         else if(view == aBinding.allLang){
@@ -593,6 +607,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                         public void onSuccess(Uri uri) {
                             Profile_Pic_Uri = uri.toString();
                             Utilities.makeToast("Upload image sucessfull!!", DetailsPage.this);
+                            uploadCoursesinFirestore();
                             UploadInFirestore();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -629,8 +644,10 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         courseMode = aBinding.courseMode.getText().toString();
         DurationOfCourse = aBinding.inputDuration.getText().toString();
         sessions = aBinding.inputSessions.getText().toString();
-        coursePrice = aBinding.inputCoursesPrice.getText().toString();
+        BasicCoursePrice = aBinding.inputBasicCoursesPrice.getText().toString();
+        AdvanceCoursePrice = aBinding.inputAdvanceCoursesPrice.getText().toString();
         expertNote = aBinding.expertNote.getText().toString();
+
 
 
     }
@@ -669,12 +686,15 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 coursesList.add("Numerology");
                 coursesList.add("Lal Kitab");
                 coursesList.add("Tarot Cards");
+                coursesList.add("Mobile numerology");
+
             }else if(!callSelected){
                 coursesList.remove("Astrology");
                 coursesList.remove("Vastu Shastra");
                 coursesList.remove("Numerology");
                 coursesList.remove("Lal Kitab");
                 coursesList.remove("Tarot Cards");
+                coursesList.remove("Mobile numerology");
             }
         }else{
             if (what.equals("add")){
@@ -725,13 +745,6 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         int no = rand.nextInt(100000);
         ExpertDetails expertDetails = new ExpertDetails();
         expertDetails.setServices(otherExperties);
-        expertDetails.setavailableForCourses(availableForCourses);
-        expertDetails.setCourses(coursesList);
-        expertDetails.setCourseMode(courseMode);
-        expertDetails.setDurationOfCourse(DurationOfCourse);
-        expertDetails.setsessions(sessions);
-        expertDetails.setCoursePrice(coursePrice);
-        expertDetails.setexpertNote(expertNote);
         expertDetails.setLanguages(languages);
         expertDetails.setBackground(remarks);
         expertDetails.setCity(city);
@@ -787,6 +800,131 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
                 myProgressDialog.dismissDialog();
             }
         });
+    }
+
+    public void uploadCoursesinFirestore(){
+        Random rand = new Random();
+        int no = rand.nextInt(100000);
+        ExpertCourseDetails expertCourseDetails = new ExpertCourseDetails();
+        expertCourseDetails.setavailableForCourses(availableForCourses);
+        expertCourseDetails.setCourses(coursesList);
+        expertCourseDetails.setCourseMode(courseMode);
+        expertCourseDetails.setDurationOfCourse(DurationOfCourse);
+        expertCourseDetails.setsessions(sessions);
+        expertCourseDetails.setBasicCoursePrice(BasicCoursePrice);
+        expertCourseDetails.setAdvanceCoursePrice(AdvanceCoursePrice);
+        expertCourseDetails.setexpertNote(expertNote);
+
+
+        database = FirebaseFirestore.getInstance();
+        if(aBinding.castrology.isChecked()){
+            {
+                database.collection("Astrology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
+        if(aBinding.cnumerology.isChecked()){
+            {
+                database.collection("Numerology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
+        if(aBinding.ctarotCard.isChecked()){
+            {
+                database.collection("Tarot Card Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
+        if(aBinding.clalKitab.isChecked()){
+            {
+                database.collection("Lal Kitab Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
+        if(aBinding.cvastuShastra.isChecked()){
+            {
+                database.collection("Vastu Shastra Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
+        if(aBinding.cmobileNumerology.isChecked()){
+            {
+                database.collection("Mobile Numerology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        myProgressDialog.dismissDialog();
+                        SendToHomeActivity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Utilities.makeToast("Cant add try again !",getApplicationContext());
+                        myProgressDialog.dismissDialog();
+                    }
+                });
+
+            }}
+
     }
 
 

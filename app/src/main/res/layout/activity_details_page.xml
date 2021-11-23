@@ -57,12 +57,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
-                    >
+                    android:layout_marginRight="16dp">
                     <!--Profile Image-->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profileCard"
@@ -80,14 +80,14 @@
                             android:id="@+id/profilePic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/ic_profile_pic"
+                            android:contentDescription="@string/name"
                             android:elevation="5dp"
                             android:scaleType="centerCrop"
+                            android:src="@drawable/ic_profile_pic"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:contentDescription="@string/name" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -98,13 +98,13 @@
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/profileCard"
                         android:layout_alignBottom="@+id/profileCard"
-                        android:background="@drawable/round_button_back"
-                        android:src="@drawable/ic_choose_image"
-                        android:elevation="2dp"
                         android:layout_marginBottom="7dp"
+                        android:background="@drawable/round_button_back"
+                        android:contentDescription="@string/app_name"
+                        android:elevation="2dp"
+                        android:src="@drawable/ic_choose_image"
                         app:layout_constraintBottom_toBottomOf="@+id/profileCard"
-                        app:layout_constraintEnd_toEndOf="@+id/profileCard"
-                        android:contentDescription="@string/app_name" />
+                        app:layout_constraintEnd_toEndOf="@+id/profileCard" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -561,6 +561,7 @@
                     android:layout_marginEnd="15dp"
                     android:orientation="vertical">
 
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -638,6 +639,17 @@
                             app:layout_constraintStart_toStartOf="@id/cvastuShastra"
                             app:layout_constraintEnd_toEndOf="@id/cvastuShastra"
                             />
+                        <CheckBox
+                            android:id="@+id/cmobileNumerology"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile numerology"
+                            android:buttonTint="@color/Pink_Magenta"
+                            android:textColor="@color/Pink_Magenta"
+                            app:layout_constraintStart_toStartOf="@id/clalKitab"
+                            app:layout_constraintEnd_toEndOf="@id/clalKitab"
+                            app:layout_constraintTop_toBottomOf="@id/clalKitab"
+                            />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -691,7 +703,7 @@
 
                     <!--Name-->
                     <EditText
-                        android:id="@+id/inputCoursesPrice"
+                        android:id="@+id/inputBasicCoursesPrice"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_marginStart="15dp"
@@ -699,7 +711,25 @@
                         android:layout_marginTop="12dp"
                         android:background="@drawable/text_input_box"
                         android:fontFamily="@font/poppins"
-                        android:hint="fee per month"
+                        android:hint="Basic course fee/month"
+                        android:inputType="phone"
+                        android:maxLength="4"
+                        android:paddingStart="26dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/Blue_Turquoise"
+                        android:textColorHint="@color/Blue_Turquoise"
+                        tools:ignore="RtlSymmetry" />
+
+                    <EditText
+                        android:id="@+id/inputAdvanceCoursesPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/text_input_box"
+                        android:fontFamily="@font/poppins"
+                        android:hint="Advance Course fee/month"
                         android:inputType="phone"
                         android:maxLength="4"
                         android:paddingStart="26dp"
