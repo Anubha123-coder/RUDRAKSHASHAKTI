@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ExpertCourseDetails {
 
-    List<String> languages,courses;
-    String availableForCourses,DurationOfCourse,courseMode,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote;
+    List<String>courses;
+    String availableForCourses,DurationOfCourse,courseMode,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ProfilePic,name,experience;
 
 
 
@@ -14,9 +14,8 @@ public class ExpertCourseDetails {
 
     }
 
-    public ExpertCourseDetails(List<String> courses, List<String> languages, String availableForCourses, String courseMode, String DurationOfCourse, String sessions, String BasicCoursePrice, String AdvanceCoursePrice, String expertNote){
+    public ExpertCourseDetails(List<String> courses, String availableForCourses, String courseMode, String DurationOfCourse, String sessions, String BasicCoursePrice, String AdvanceCoursePrice, String expertNote,String ProfilePic,String name,String experience){
         this.courses = courses;
-        this.languages = languages;
         this.availableForCourses = availableForCourses;
         this.DurationOfCourse = DurationOfCourse;
         this.courseMode = courseMode;
@@ -24,6 +23,9 @@ public class ExpertCourseDetails {
         this.BasicCoursePrice = BasicCoursePrice;
         this.AdvanceCoursePrice = AdvanceCoursePrice;
         this.expertNote = expertNote;
+        this.ProfilePic = ProfilePic;
+        this.name = name;
+        this.experience = experience;
 
 
     }
@@ -89,5 +91,29 @@ public class ExpertCourseDetails {
 
     public void setexpertNote(String expertNote) {
         this.expertNote = expertNote;
+    }
+
+    public String getProfilePic() {
+        return ProfilePic;
+    }
+
+    public void setProfilePic(String ProfilePic) {
+        this.ProfilePic = ProfilePic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }

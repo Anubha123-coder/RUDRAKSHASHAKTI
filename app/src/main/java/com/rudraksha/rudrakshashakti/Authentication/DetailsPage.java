@@ -811,6 +811,9 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         expertCourseDetails.setCourseMode(courseMode);
         expertCourseDetails.setDurationOfCourse(DurationOfCourse);
         expertCourseDetails.setsessions(sessions);
+        expertCourseDetails.setProfilePic(Profile_Pic_Uri);
+        expertCourseDetails.setName(name);
+        expertCourseDetails.setExperience(experience);
         expertCourseDetails.setBasicCoursePrice(BasicCoursePrice);
         expertCourseDetails.setAdvanceCoursePrice(AdvanceCoursePrice);
         expertCourseDetails.setexpertNote(expertNote);
@@ -819,7 +822,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         database = FirebaseFirestore.getInstance();
         if(aBinding.castrology.isChecked()){
             {
-                database.collection("Astrology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Astrology Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
@@ -837,7 +840,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
         if(aBinding.cnumerology.isChecked()){
             {
-                database.collection("Numerology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Numerology Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
@@ -855,7 +858,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
         if(aBinding.ctarotCard.isChecked()){
             {
-                database.collection("Tarot Card Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Tarot Card Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
@@ -873,7 +876,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
         if(aBinding.clalKitab.isChecked()){
             {
-                database.collection("Lal Kitab Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Lal Kitab Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
@@ -891,7 +894,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
         if(aBinding.cvastuShastra.isChecked()){
             {
-                database.collection("Vastu Shastra Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Vastu Shastra Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
@@ -909,7 +912,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
         if(aBinding.cmobileNumerology.isChecked()){
             {
-                database.collection("Mobile Numerology Courses").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("Mobile Numerology Course").document(uid).set(expertCourseDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         myProgressDialog.dismissDialog();
