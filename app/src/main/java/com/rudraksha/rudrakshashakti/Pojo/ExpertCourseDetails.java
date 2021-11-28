@@ -69,12 +69,12 @@ public class ExpertCourseDetails {
         this.sessions = sessions;
     }
 
-    public String getBasicCourcePrice() {
+    public String getBasicCoursePrice() {
         return BasicCoursePrice;
     }
 
-    public void setBasicCoursePrice(String coursePrice) {
-        this.BasicCoursePrice = coursePrice;
+    public void setBasicCoursePrice(String BasicCoursePrice) {
+        this.BasicCoursePrice = BasicCoursePrice;
     }
 
     public String getAdvanceCoursePrice() {
