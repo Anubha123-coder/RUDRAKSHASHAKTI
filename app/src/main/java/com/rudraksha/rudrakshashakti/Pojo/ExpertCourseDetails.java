@@ -5,7 +5,7 @@ import java.util.List;
 public class ExpertCourseDetails {
 
     List<String>courses;
-    String availableForCourses,DurationOfCourse,courseMode,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ProfilePic,name,experience;
+    String courseUnderReview,DurationOfCourse,courseMode,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ProfilePic,name,experience,whatsappNo;
 
 
 
@@ -14,9 +14,9 @@ public class ExpertCourseDetails {
 
     }
 
-    public ExpertCourseDetails(List<String> courses, String availableForCourses, String courseMode, String DurationOfCourse, String sessions, String BasicCoursePrice, String AdvanceCoursePrice, String expertNote,String ProfilePic,String name,String experience){
+    public ExpertCourseDetails(List<String> courses, String courseUnderReview, String courseMode, String DurationOfCourse, String sessions, String BasicCoursePrice, String AdvanceCoursePrice, String expertNote,String ProfilePic,String name,String experience,String whatsappNo){
         this.courses = courses;
-        this.availableForCourses = availableForCourses;
+        this.courseUnderReview = courseUnderReview;
         this.DurationOfCourse = DurationOfCourse;
         this.courseMode = courseMode;
         this.sessions = sessions;
@@ -26,6 +26,7 @@ public class ExpertCourseDetails {
         this.ProfilePic = ProfilePic;
         this.name = name;
         this.experience = experience;
+        this.whatsappNo = whatsappNo;
 
 
     }
@@ -38,12 +39,12 @@ public class ExpertCourseDetails {
         this.courses = courses;
     }
 
-    public String getavailableForCourses() {
-        return availableForCourses;
+    public String getCourseUnderReview() {
+        return courseUnderReview;
     }
 
-    public void setavailableForCourses(String availableForCourses) {
-        this.availableForCourses = availableForCourses;
+    public void setCourseUnderReview(String courseUnderReview) {
+        this.courseUnderReview = courseUnderReview;
     }
 
     public String getCourseMode() {
@@ -115,5 +116,13 @@ public class ExpertCourseDetails {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getWhatsappNo() {
+        return whatsappNo;
+    }
+
+    public void setWhatsappNo(String whatsappNo) {
+        this.whatsappNo = whatsappNo;
     }
 }

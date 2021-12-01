@@ -67,7 +67,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
 
     FirebaseAuth mAuth;
 
-    String name,dateOfBirth,state,city,Profile_Pic_Uri,uid,gender,fathersName,EmailId,WhatsappNo,UpiNo,mainExperty,experience,remarks,price,referral,availableForCourses,courseMode,DurationOfCourse,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ExpertMainCourse;
+    String name,dateOfBirth,state,city,Profile_Pic_Uri,uid,gender,fathersName,EmailId,WhatsappNo,UpiNo,mainExperty,experience,remarks,price,referral,courseUnderReview,courseMode,DurationOfCourse,sessions,BasicCoursePrice,AdvanceCoursePrice,expertNote,ExpertMainCourse;
     List<String> otherExperties = new ArrayList<String>();
     List<String> coursesList = new ArrayList<String>();
     List<String> languages = new ArrayList<String>();
@@ -335,11 +335,11 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         }else if(view == aBinding.coursesCheckbox) {
             aBinding.coursesCheckbox.setClickable(true);
             if (((CheckBox) view).isChecked()){
-                availableForCourses = "yes";
+
                 ShowCourseLayout();
             }
             else if(!((CheckBox) view).isChecked()){
-                availableForCourses = "no";
+
                 HideCourseLayout();
             }
 
@@ -806,7 +806,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         Random rand = new Random();
         int no = rand.nextInt(100000);
         ExpertCourseDetails expertCourseDetails = new ExpertCourseDetails();
-        expertCourseDetails.setavailableForCourses(availableForCourses);
+        expertCourseDetails.setCourseUnderReview("true");
         expertCourseDetails.setCourses(coursesList);
         expertCourseDetails.setCourseMode(courseMode);
         expertCourseDetails.setDurationOfCourse(DurationOfCourse);
@@ -817,6 +817,7 @@ public class DetailsPage extends AppCompatActivity implements View.OnClickListen
         expertCourseDetails.setBasicCoursePrice(BasicCoursePrice);
         expertCourseDetails.setAdvanceCoursePrice(AdvanceCoursePrice);
         expertCourseDetails.setexpertNote(expertNote);
+        expertCourseDetails.setWhatsappNo(WhatsappNo);
 
 
         database = FirebaseFirestore.getInstance();
