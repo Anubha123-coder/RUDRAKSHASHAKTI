@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         uid = mAuth.getUid();
         setListeners();
         getUpcomingAndPreviousCalls();
+
     }
 
     /**
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
                 new JSONObject(data),
                 new Response.Listener<JSONObject>() {
-                boolean expertExist = false;
+                    boolean expertExist = false;
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(JSONObject response) {
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 addPreviousCallsToRecyclerView(response);
                                 myProgressDialog.dismissDialog();
                             }else{
-                               Utilities.makeToast("Sorry you are not found in database!!",getApplicationContext());
+                                Utilities.makeToast("Sorry you are not found in database!!",getApplicationContext());
                                 myProgressDialog.dismissDialog();
                             }
                         } catch (JSONException e) {
@@ -234,12 +237,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 upcommingCalls.setCallDuration(upcomingCall.getString("duration"));
                 upcommingCalls.setCallTime(upcomingCall.getString("timeSlot"));
                 upcommingCalls.setService(upcomingCall.getString("service"));
-
+                String check_service;
+                check_service = upcommingCalls.getService();
+                if(check_service.equals("Vastu Shastra")) {
+                    upcommingCalls.setArea(upcomingCall.getString("AreaofProperty"));
+                    upcommingCalls.setPropType(upcomingCall.getString("TypeofProperty"));
+                    upcommingCalls.setFloor(upcomingCall.getString("FloorOfProperty"));
+                    upcommingCalls.setBedroom(upcomingCall.getString("Bedrooms"));
+                    upcommingCalls.setWashroom(upcomingCall.getString("Washrooms"));
+                    upcommingCalls.setStoreroom(upcomingCall.getString("Storerooms"));
+                    upcommingCalls.setStoreroom(upcomingCall.getString("Storerooms"));
+                    upcommingCalls.setdinning(upcomingCall.getString("dinning"));
+                    upcommingCalls.setdrawing(upcomingCall.getString("drawing"));
+                    upcommingCalls.setkitchen(upcomingCall.getString("kitchen"));
+                    upcommingCalls.setstairs(upcomingCall.getString("stairs"));
+                    upcommingCalls.setstudy(upcomingCall.getString("study"));
+                    upcommingCalls.setterrace(upcomingCall.getString("terrace"));
+                    upcommingCalls.setimgurl(upcomingCall.getString("VastuUrl"));
+                }
                 upcommingCallsArrayList.add(upcommingCalls);
 
             }
             if (upcommingCallsArrayList.isEmpty()) {
-               binding.noUpcomingCalls.setVisibility(View.VISIBLE);
+                binding.noUpcomingCalls.setVisibility(View.VISIBLE);
             }
 
             final UpcomingCallsAdapter UpcomingCallsadapter = new UpcomingCallsAdapter(getApplication(),upcommingCallsArrayList);
@@ -258,36 +278,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-       if (view == binding.logout){
-          logout();
-       }else if(view == binding.audioCall){
-           openAudioMeeting("AudioOnly");
-       }else if (view == binding.videoCall){
-           openAudioMeeting("VideoOnly");
-       }
+        if (view == binding.logout){
+            logout();
+        }else if(view == binding.audioCall){
+            openAudioMeeting("AudioOnly");
+        }else if (view == binding.videoCall){
+            openAudioMeeting("VideoOnly");
+        }
     }
 
     private void logout() {
         Utilities.makeToast("Logging Out ...",getApplicationContext());
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         if (mainService != null){
-        DocumentReference documentReference = database.collection(mainService).document(mAuth.getUid());
-        HashMap<String , Object> updates = new HashMap<>();
-        updates.put("FCMToken", FieldValue.delete());
-        documentReference.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                mAuth.signOut();
-                Intent intent = new Intent(getApplicationContext(), ChooseAuthentication.class);
-                startActivity(intent);
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Utilities.makeToast("Sorry failed to logout! Try Again",getApplicationContext());
-            }
-        });
+            DocumentReference documentReference = database.collection(mainService).document(mAuth.getUid());
+            HashMap<String , Object> updates = new HashMap<>();
+            updates.put("FCMToken", FieldValue.delete());
+            documentReference.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    mAuth.signOut();
+                    Intent intent = new Intent(getApplicationContext(), ChooseAuthentication.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+                    Utilities.makeToast("Sorry failed to logout! Try Again",getApplicationContext());
+                }
+            });
 
         }
     }
