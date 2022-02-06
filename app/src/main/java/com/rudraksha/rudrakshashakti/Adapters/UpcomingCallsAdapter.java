@@ -88,7 +88,12 @@ public class UpcomingCallsAdapter extends RecyclerView.Adapter<UpcomingCallsAdap
             holder.Washroom.setVisibility(View.VISIBLE);
             holder.Storeroom.setVisibility(View.VISIBLE);
             holder.Others.setVisibility(View.VISIBLE);
-            holder.naksha.setVisibility(View.VISIBLE);
+            if(Imageurl.equals("null")){
+                holder.naksha.setVisibility(View.GONE);
+            }
+            else{
+                holder.naksha.setVisibility(View.VISIBLE);
+            }
 
             holder.Type.setText("Type Of Property: "+upcommingCallsModel.getPropType());
             holder.Area.setText("Area: "+upcommingCallsModel.getArea()+" sqft");
