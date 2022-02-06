@@ -109,8 +109,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="#000000"
-                android:background="@drawable/ic_baseline_expand_more_24"/>
+                android:background="@drawable/ic_baseline_expand_more_24"
+                android:backgroundTint="#000000" />
 
         </RelativeLayout>
 
@@ -124,6 +124,7 @@
         android:layout_marginTop="-10dp"
         android:visibility="gone"
         android:orientation="vertical"
+        android:gravity="center"
         android:background="@drawable/expert_details_dropdown_background"
         >
 
@@ -176,8 +177,114 @@
             android:fontFamily="@font/poppins_regular"
             />
 
+        <TextView
+            android:id="@+id/VastuDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="---------- Vastu Details ----------"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Type of Property text-->
+        <TextView
+            android:id="@+id/Type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Type of Property: "
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Area text-->
+        <TextView
+            android:id="@+id/Area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Area: 1200"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Floor text-->
+        <TextView
+            android:id="@+id/Floor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Floors: 2"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Bedrooms text-->
+        <TextView
+            android:id="@+id/Bedrooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Bedrooms : 2"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Storerooms text-->
+        <TextView
+            android:id="@+id/Storerooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Storerooms : 2"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+        <!--Washrooms text-->
+        <TextView
+            android:id="@+id/Washrooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:text="Washrooms : 2"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+
+
+        <!--Others text-->
+        <TextView
+            android:id="@+id/Others"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="28dp"
+            android:text="Others"
+            android:textAlignment="center"
+            android:textAppearance="@style/expert_rating"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+
+        <!--Download naksha-->
+        <Button
+            android:id="@+id/naksha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:backgroundTint="@color/cardview_light_background"
+            android:elevation="2dp"
+            android:text="Download Naksha"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
-
-
-
 </LinearLayout>
