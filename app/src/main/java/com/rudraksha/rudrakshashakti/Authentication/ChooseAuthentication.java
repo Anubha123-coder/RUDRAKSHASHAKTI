@@ -74,7 +74,6 @@ public class ChooseAuthentication extends AppCompatActivity implements View.OnCl
         View view = aBinding.getRoot();
         //Setting content view to Root view
         setContentView(view);
-
         setListeners();
 
     }
